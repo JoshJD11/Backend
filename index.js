@@ -1,7 +1,7 @@
 import { getSongs, addSong, getMusicBoxes, addMusicBox } from './firebase.js'
+import express from 'express';
+import cors from 'cors';
 
-const express = require('express');
-const cors = require('cors');
 
 const port = 3000;
 
@@ -39,7 +39,7 @@ app.get('/get/songs', async (req, res) => {
 
 app.post('/add/box', async (req, res) => {
     try {
-        const {imageURL, musicBoxName, boxPrice} = req.body();
+        const {imageURL, musicBoxName, boxPrice} = req.body;
         await addMusicBox(imageURL, musicBoxName, boxPrice);
         res.status(201).json({image_URL: imageURL, box_name: musicBoxName, price: boxPrice});
 
@@ -53,7 +53,7 @@ app.post('/add/box', async (req, res) => {
 
 app.post('/add/song', async (req, res) => {
     try {
-        const {songName, exampleURL} = req.body();
+        const {songName, exampleURL} = req.body;
         await addSong(songName, exampleURL);
         res.status(201).json({song_name: songName, example_URL: exampleURL});
 
@@ -67,3 +67,5 @@ app.post('/add/song', async (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto: ${port}.`)
 })
+
+// El programa se ejecuta con: node index.js
