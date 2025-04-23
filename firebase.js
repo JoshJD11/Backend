@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { doc, getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc} from 'firebase/firestore';
+import { doc, getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, setDoc} from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,7 +24,10 @@ const db = getFirestore();
 export const getSongs = () => getDocs(collection(db, 'songs'));
 export const addSong = (songName, exampleURL) => addDoc(collection(db, 'songs'), {song_name: songName, example_URL: exampleURL});
 export const getMusicBoxes = () => getDocs(collection(db, 'music_boxes'));
-export const addMusicBox = (imageURL, musicBoxName, boxPrice) => addDoc(collection(db, 'music_boxes'), {image_URL: imageURL, box_name: musicBoxName, price: boxPrice});
+export const addMusicBox = (imageURL, musicBoxName, isPersonalizable, boxPrice) => addDoc(collection(db, 'music_boxes'), {image_URL: imageURL, box_name: musicBoxName, personalizable: isPersonalizable, price: boxPrice});
+
+// export const updateSong = (id, data) => setDoc(doc(db, 'songs', id), {/* Datos nuevos, formato JSON */});
+// export const updateMusicBox = (id, data) => setDoc(doc(db, 'music_boxes', id), {/* Datos nuevos, formato JSON */});
 
 // export const onGetSongs = (callback) => onSnapshot(collection(db, 'songs'), callback);
-// export const deleteSong = (docName, id) => deleteDoc(doc(db, docName, id));
+export const deleteRow = (collection, identification) => deleteDoc(doc(db, collection, identification));
